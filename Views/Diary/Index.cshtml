@@ -1,0 +1,33 @@
+@model IEnumerable<csharp_diary.Models.Diary>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Your Diary</h1>
+
+
+<div id="diaryEntryContainer" class="d-flex flex-wrap justify-content-center">
+    @foreach (var item in Model)
+    {
+        <div class="card m-2" style="width 18rem;">
+            <div class="card-header" style="width auto">
+                <h2>@Html.DisplayFor(modelItem => item.EntryTitle)</h2>
+                <h5>@Html.DisplayFor(modelItem => item.EntryDate)</h5>
+            </div>
+            <div class="card-body">
+                <p>
+                    @Html.DisplayFor(modelItem => item.EntiryDesc)
+                </p>
+            </div>
+            <div>
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </div>
+        </div>
+    }
+</div>
+<p class="d-flex justify-content-center">
+    <a class="btn btn-primary" asp-action="Create">Create New</a>
+</p>
