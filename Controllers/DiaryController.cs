@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+
 using csharp_diary.Data;
 using csharp_diary.Models;
 
@@ -22,9 +24,9 @@ namespace csharp_diary.Controllers
         // GET: Diary
         public async Task<IActionResult> Index()
         {
-              return _context.Diary != null ? 
-                          View(await _context.Diary.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Diary'  is null.");
+            return _context.Diary != null ?
+                        View(await _context.Diary.ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.Diary'  is null.");
         }
 
         // GET: Diary/Details/5
@@ -60,6 +62,8 @@ namespace csharp_diary.Controllers
         {
             if (ModelState.IsValid)
             {
+                // var owner = User.Identity?.Name;
+                // diary.Owner = owner
                 _context.Add(diary);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -150,14 +154,14 @@ namespace csharp_diary.Controllers
             {
                 _context.Diary.Remove(diary);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool DiaryExists(int id)
         {
-          return (_context.Diary?.Any(e => e.ID == id)).GetValueOrDefault();
+            return (_context.Diary?.Any(e => e.ID == id)).GetValueOrDefault();
         }
     }
 }
