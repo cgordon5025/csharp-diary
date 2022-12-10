@@ -1,16 +1,9 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
 namespace csharp_diary.Models
 {
-    // public class ApplicationUser :IdentityUser
-    // {
-    //     public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
-    //     {
-    //         var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie)
-    //             return userIdentity
-    //     }
-    // }
     public class Diary
     {
         public int ID { get; set; }
@@ -26,5 +19,14 @@ namespace csharp_diary.Models
         // public string UserID { get; set; }
         // [ForeignKey("UserID")]
         // public virtual ApplicationUser ApplicationUser { get; set; }
+    }
+
+    public class DiaryContext : DbContext
+    {
+        DbSet<Diary> Diaries { get; set; }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("Server=localhost,1433; Database=Test;User=sa; Password=your_password; TrustServerCertificate=True");
+        }
     }
 }
