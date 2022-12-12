@@ -13,3 +13,4 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<csharp_diary.Models.Diary> Diary { get; set; } = default!;
 }
 
+//note to self maybe no auto log in feature so i can get used to it, and then i can do specfic things with the api routes??
